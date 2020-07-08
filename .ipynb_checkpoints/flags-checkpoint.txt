@@ -1,2 +1,17 @@
+intro_python-done
+embsec{read_example_df9a527d33636272}
+embsec{write_example_a99342f946c747ca}
+
+review_python-done
+embsec{splitting_integers_a8cb691c7d6bddf1}
+embsec{skeleton_script_964672bf7402c29b}
+embsec{integer_flipping_bb7a842f40653350}
+
+protocol_lab
+embsec{sending_data_8d93da2f8246f6f7}
+embsec{heartbeat_b273108a1599c95f}
+embsec{noise_6c1d36d1b3cce407}
+
+intro_c-done
 embsec{read_example_df9a527d33636272}
 embsec{write_example_a99342f946c747ca}
