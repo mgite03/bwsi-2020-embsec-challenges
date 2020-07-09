@@ -15,3 +15,13 @@ embsec{noise_6c1d36d1b3cce407}
 intro_c-done
 embsec{read_example_df9a527d33636272}
 embsec{write_example_a99342f946c747ca}
+
+review_c
+embsec{int_to_bin_7b58e0ead6ac93e1}
+embsec{anagram_794fb5c8e9e9fdfa}
+
+flash_example
+embsec{flash_example_ccba1e5af61e269f}
+
+uart_challenge
+embsec{uart_challenge_8b85d7fabf3ad96e}
