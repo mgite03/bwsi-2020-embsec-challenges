@@ -17,23 +17,24 @@
 
 void uart_init(uint8_t uart)
 {
-  // Implement me!!
     
-    //disable uarten bit to 0
-    UART2_CTL_R &= ~(UART_CTL_UARTEN); //is basically saying everything in the register &= 11111110
+    //disable uarten bit in the control register, to change the uart 
+    UART2_CTL_R &= ~(UART_CTL_UARTEN); //~UART_CTL_UARTEN=11111110 - sets the last bit (uarten) to 0
     
     
+    //set baud rate in integer baud rate register and fractional baud raate register
     UART2_IBRD_R &= 0xFFFF0000;//zeroing out the bytes we want to change
-    UART2_IBRD_R |= 0x0a;
-    UART2_FBRD_R &= 0xFFFF0000;
-    UART2_FBRD_R |= 0x36;
+    UART2_IBRD_R |= 0x0a; // changing the specific bytes to the int part of the baud rate
+    UART2_FBRD_R &= 0xFFFF0000; // zeroing out the bytes we want to change
+    UART2_FBRD_R |= 0x36;// changing the specific bytes to the fraction part of the baud rate
     
-    //set baud rate
-        
-    //set data length, parity check
+
+    //set no parity check
+    UART2_LCRH_R &= 0xFFFFFFFD; //sets second to last bit to 0
     
-    UART2_LCRH_R &= 0xFFFFFFFD;//no parity
-    UART2_LCRH_R |= UART_LCRH_WLEN_8; //0x0000_0060
+    
+    //set data length
+    UART2_LCRH_R |= UART_LCRH_WLEN_8; //0x0000_0060 - sets the two wlen bits to 1, setting word length to 8
         
     
     //enable uart
@@ -64,9 +65,7 @@ uint8_t uart_read(uint8_t uart, int blocking, int *read)
             *read = 0;
             return 0;
         }
-    }
-    
-    
+    } 
 }
 
 void uart_write(uint8_t uart, uint32_t data)
