@@ -57,9 +57,9 @@ static void IntDefaultHandler(void);
 // Forward declarations of interrupt handlers.
 //
 //******************************************************************************
-// Put your function prototype here!
-
 extern void UART0_IRQHandler(void);
+
+
 
 
 //*****************************************************************************

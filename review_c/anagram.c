@@ -21,8 +21,6 @@ uint8_t isAnagram (char* str_a, char* str_b) {
 
             }
         }
-
-        
     }
         
     int k;
