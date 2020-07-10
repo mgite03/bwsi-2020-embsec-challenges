@@ -25,7 +25,7 @@ void uart_init(uint8_t uart)
     //set baud rate in integer baud rate register and fractional baud raate register
     UART2_IBRD_R &= 0xFFFF0000;//zeroing out the bytes we want to change
     UART2_IBRD_R |= 0x0a; // changing the specific bytes to the int part of the baud rate
-    UART2_FBRD_R &= 0xFFFF0000; // zeroing out the bytes we want to change
+    UART2_FBRD_R &= ~(0x0000003F); // zeroing out the bytes we want to change
     UART2_FBRD_R |= 0x36;// changing the specific bytes to the fraction part of the baud rate
     
 
@@ -34,6 +34,7 @@ void uart_init(uint8_t uart)
     
     
     //set data length
+    UART2_LCRH_R &= ~(0x00000060); // clears the two bits we want
     UART2_LCRH_R |= UART_LCRH_WLEN_8; //0x0000_0060 - sets the two wlen bits to 1, setting word length to 8
         
     
@@ -45,27 +46,23 @@ void uart_init(uint8_t uart)
 uint8_t uart_read(uint8_t uart, int blocking, int *read)
 {
   // Implement me!!
-    int flag_check = UART2_FR_R & UART_FR_RXFE;
+
     if (blocking){
-        while(flag_check);
+        while(UART2_FR_R & UART_FR_RXFE);//wait until the UART Receive FIFO Empty flag is a 0, which means the fifo is empty
         
         *read = 1;
-        int data = UART2_DR_R & UART_DR_DATA_M; //0x000000FF
-        return data; 
+  
+        return UART2_DR_R & UART_DR_DATA_M; //0x000000FF
     }
-    else{ 
-        
-        if (UART2_FR_R & UART_FR_RXFF){
-            *read = 1;
-            int data = UART2_DR_R & UART_DR_DATA_M; //0x000000FF
-            return data; 
-
+    if (UART2_FR_R & UART_FR_RXFF){
+        *read = 1;
+        return UART2_DR_R & UART_DR_DATA_M; //0x000000F
     }
-        else{
-            *read = 0;
-            return 0;
+    else{
+        *read = 0;
+        return 0;
         }
-    } 
+     
 }
 
 void uart_write(uint8_t uart, uint32_t data)

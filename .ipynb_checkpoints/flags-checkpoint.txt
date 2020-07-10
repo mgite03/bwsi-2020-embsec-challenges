@@ -20,8 +20,16 @@ review_c
 embsec{int_to_bin_7b58e0ead6ac93e1}
 embsec{anagram_794fb5c8e9e9fdfa}
 
-flash_example
+flash_example- done
 embsec{flash_example_ccba1e5af61e269f}
 
-uart_challenge
+uart_c - done
 embsec{uart_challenge_8b85d7fabf3ad96e}
+
+design- done
+embsec{fw_protect_abf414be6977aaeb}
+embsec{fw_update_1e2e37bafe98506a}
+
+
+io_c ??
+io_python ??
