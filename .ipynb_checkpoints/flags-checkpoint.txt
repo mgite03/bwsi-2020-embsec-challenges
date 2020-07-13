@@ -16,7 +16,7 @@ intro_c-done
 embsec{read_example_df9a527d33636272}
 embsec{write_example_a99342f946c747ca}
 
-review_c - done
+review_c
 embsec{int_to_bin_7b58e0ead6ac93e1}
 embsec{anagram_794fb5c8e9e9fdfa}
 
@@ -31,7 +31,11 @@ embsec{fw_protect_abf414be6977aaeb}
 embsec{fw_update_1e2e37bafe98506a}
 
 io_c ??
-io_python ??
+
+
+io_python
+embsec{echo_int_43af38924f43beff}
+embsec{send_file_278426d2ff36cbbb}
 
 interrupt_c - done
 embsec{interrupt_challenge_5aa1bf31d8f96662}
