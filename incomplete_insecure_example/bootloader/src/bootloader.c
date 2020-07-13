@@ -43,8 +43,8 @@ extern int _binary_firmware_bin_size;
 
 
 // Device metadata
-uint16_t *fw_version_address = METADATA_BASE;
-uint16_t *fw_size_address = METADATA_BASE+2;
+int *fw_version_address = METADATA_BASE;
+int *fw_size_address = METADATA_BASE+2;
 
 
 // Firmware Buffer
@@ -118,7 +118,7 @@ void load_firmware(void)
   uint32_t page_addr = FW_BASE;
   uint32_t version = 0;
   uint32_t size = 0;
-  uint32_t received_fw_bytes = 0;
+  //uint32_t received_fw_bytes = 0;
 
 
   // Get version.
@@ -242,6 +242,8 @@ void boot_firmware(void)
 
   // TODO: Print release message
 
-
-
+  int *release_addr = FW_BASE + fw_size;
+  uart_write_str(UART2, *(release_addr));
+  nl(UART2);
+    
 }

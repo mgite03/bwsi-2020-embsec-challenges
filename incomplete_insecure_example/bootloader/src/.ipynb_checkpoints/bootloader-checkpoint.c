@@ -110,7 +110,7 @@ void load_initial_firmware(void) {
  */
 void load_firmware(void)
 {
-  int frame_length = 0;
+  int frame_length = 1;
   int read = 0;
   uint32_t rcv = 0;
   
@@ -125,14 +125,21 @@ void load_firmware(void)
   rcv = uart_read(UART1, BLOCKING, &read);
   version = (uint32_t)rcv;
   rcv = uart_read(UART1, BLOCKING, &read);
-  version |= (uint32_t)rcv << 8;
+  version |= (uint32_t)rcv << 8;//gets the 2 bytes for version
 
   uart_write_str(UART2, "Received Firmware Version: ");
   uart_write_hex(UART2, version);
   nl(UART2);
 
   // TODO: Read the firmware size from the fw_update tool
-
+  rcv = uart_read(UART1, BLOCKING, &read);
+  size = (uint32_t)rcv;
+  rcv = uart_read(UART1, BLOCKING, &read);
+  size |= (uint32_t)rcv << 8; 
+    
+  uart_write_str(UART2, "Received Size: ");
+  uart_write_hex(UART2, size);
+  nl(UART2);
 
   // Compare to old version and abort if older (note special case for version 0).
   uint16_t old_version = *fw_version_address;
@@ -155,8 +162,40 @@ void load_firmware(void)
 
   // TODO: Load the firmware into flash memory at 0x10000
 
-}
 
+    
+    
+  while(frame_length != 0){
+      while(data_index < 1024){
+      rcv = uart_read(UART1, BLOCKING, &read);
+      frame_length = (uint32_t)rcv << 8;
+      rcv = uart_read(UART1, BLOCKING, &read);
+      frame_length |= (uint32_t)rcv;
+      
+      
+      if (frame_length == 0)
+          break;
+      
+      int i;
+      for(i = 0; i <frame_length; i ++){
+            uint32_t current_data =(uint32_t)(uart_read(UART1, BLOCKING, &read));
+
+      
+            data[data_index] = current_data;
+            data_index ++;
+      }
+      uart_write(UART1, OK);
+
+  }
+  //write data to a page of flash
+      
+  program_flash(page_addr,data, data_index);
+  data_index = 0;
+  page_addr += FLASH_PAGESIZE;
+  }
+
+}
+//also somewhere send an ok message per frame
 
 /*
  * Program a stream of bytes to the flash.
@@ -203,6 +242,8 @@ void boot_firmware(void)
 
   // TODO: Print release message
 
-  // TODO: Boot the firmware
-
+  uint16_t *release_addr = FW_BASE + fw_size;
+  uart_write_str(UART2, *(release_addr));
+  nl(UART2);
+    
 }
