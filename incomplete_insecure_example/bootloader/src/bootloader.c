@@ -242,8 +242,12 @@ void boot_firmware(void)
 
   // TODO: Print release message
 
-  int *release_addr = FW_BASE + fw_size;
-  uart_write_str(UART2, *(release_addr));
+  release_addr = (uint8_t *) FW_BASE + fw_size;
+  uart_write_str(UART2, release_addr);
   nl(UART2);
+   //Boot the firmware
     
+    __asm("LSR R0, =0x10001\n\t"
+         "BX R0\n\t");
+  
 }
