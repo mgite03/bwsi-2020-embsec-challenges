@@ -46,3 +46,10 @@ embsec{aes_decrypt_5b0bfc68f6cd7692}
 incomplete_insecure_example
 
 aes_c
+embsec{aes_decrypt_5b0bfc68f6cd7692}
+
+hmac_python - done
+embsec{hmac_generate_40a7c2dbd2fcb709}
+embsec{hmac_verify_85eecbb6339cc72c}
+
+hmac_c
