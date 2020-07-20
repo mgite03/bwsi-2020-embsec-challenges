@@ -53,3 +53,6 @@ embsec{hmac_generate_40a7c2dbd2fcb709}
 embsec{hmac_verify_85eecbb6339cc72c}
 
 hmac_c
+
+one_time_pad
+embsec{xor_3ffa1e4c017dbad3}
