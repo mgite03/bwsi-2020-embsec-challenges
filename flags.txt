@@ -56,3 +56,6 @@ hmac_c
 
 one_time_pad
 embsec{xor_3ffa1e4c017dbad3}
+
+spa_lab
+embsec{spa_easy_c114bc5647870e29}
