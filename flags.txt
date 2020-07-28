@@ -59,3 +59,7 @@ embsec{xor_3ffa1e4c017dbad3}
 
 spa_lab
 embsec{spa_easy_c114bc5647870e29}
+
+dpa_lab - done
+embsec{dpa_setup_98958a3edf8ddabe}
+embsec{dpa_attack_c644de840b222a7c}
